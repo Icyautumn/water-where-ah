@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:water_where_ah/firebase_options.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,22 +49,25 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+        child: SizedBox(
+          height: 500,
+          width: 400,
+          child: FlutterMap(
+              options: MapOptions(
+                center: LatLng(1.333800, 103.918037), // TODO: replace with current user location
+                minZoom: 11,
+                zoom: 17,
+                maxZoom: 18,
+                interactiveFlags:
+                    InteractiveFlag.all & ~InteractiveFlag.pinchMove & ~InteractiveFlag.rotate,
+              ),
+              children: [
+                TileLayer(
+                  urlTemplate: "https://maps-a.onemap.sg/v3/Night/{z}/{x}/{y}.png",
+                  userAgentPackageName: 'com.example.water_where_ah',
+                ),
+              ]),
         ),
       ),
       floatingActionButton: FloatingActionButton(
