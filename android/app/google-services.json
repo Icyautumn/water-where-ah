@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "19294380273",
+    "project_id": "water-where-ah",
+    "storage_bucket": "water-where-ah.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:19294380273:android:1420265a806e3435ec4950",
+        "android_client_info": {
+          "package_name": "com.example.water_where_ah"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "19294380273-omo7orrhtiodaorfljn5q2de9ssqacif.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtEq9Jz3Y_HzxTJDBILP1ryTZuGdVaYxk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "19294380273-omo7orrhtiodaorfljn5q2de9ssqacif.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "19294380273-bt7405cdu8kam81fsm1j9jsvsvn0bso2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.waterWhereAh"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
