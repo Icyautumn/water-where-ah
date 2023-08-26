@@ -25,12 +25,15 @@ WaterCooler _$WaterCoolerFromJson(Map<String, dynamic> json) => WaterCooler(
           WaterCooler.decodeWaterCoolerLocation(json['location'] as GeoPoint),
       isWorking: json['isWorking'] as bool,
       bottleFriendly: json['bottleFriendly'] as bool,
-      isWheelchairFriendly: json['isWheelchairFriendly'] as bool,
       hasCold: json['hasCold'] as bool,
       hasHot: json['hasHot'] as bool,
       remarks: json['remarks'] as String,
-      approvalStatus:
-          WaterCooler.decodeApprovalStatus(json['isApproved'] as int),
+      wheelchairFriendly: WaterCooler.decodeWheelchairFriendly(
+        json['wheelChairFriendly'] as int,
+      ),
+      approvalStatus: WaterCooler.decodeApprovalStatus(
+        json['isApproved'] as int,
+      ),
     );
 
 Map<String, dynamic> _$WaterCoolerToJson(WaterCooler instance) =>
@@ -39,9 +42,11 @@ Map<String, dynamic> _$WaterCoolerToJson(WaterCooler instance) =>
       'location': WaterCooler.encodeWaterCoolerLocation(instance.location),
       'isWorking': instance.isWorking,
       'bottleFriendly': instance.bottleFriendly,
-      'isWheelchairFriendly': instance.isWheelchairFriendly,
       'hasCold': instance.hasCold,
       'hasHot': instance.hasHot,
       'remarks': instance.remarks,
       'isApproved': WaterCooler.encodeApprovalStatus(instance.approvalStatus),
+      'wheelChairFriendly': WaterCooler.encodeWheelchairFriendly(
+        instance.wheelchairFriendly,
+      ),
     };

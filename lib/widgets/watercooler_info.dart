@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:water_where_ah/models/enums/wheelchair_friendly.enum.dart';
 import 'package:water_where_ah/models/water_cooler.dart';
 
 class WaterCoolerInfoWidget extends StatelessWidget {
@@ -29,18 +30,13 @@ class WaterCoolerInfoWidget extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
+          ...[
+            'Location: ${waterCooler.location.latitude}, ${waterCooler.location.longitude}',
+            'Approval status: ${waterCooler.approvalStatus}',
+          ].map((e) => Chip(label: Text(e))).toList(),
+          const SizedBox(height: 16),
           Text(
             waterCooler.remarks,
-          ),
-          const SizedBox(height: 16),
-          Row(
-            children: [
-              const Icon(Icons.location_on),
-              const SizedBox(width: 8),
-              Text(
-                waterCooler.location.toString(),
-              ),
-            ],
           ),
           const SizedBox(height: 16),
           Row(
@@ -48,7 +44,7 @@ class WaterCoolerInfoWidget extends StatelessWidget {
               const Icon(Icons.accessible),
               const SizedBox(width: 8),
               Text(
-                waterCooler.isWheelchairFriendly
+                waterCooler.wheelchairFriendly == WheelcharFriendly.yes
                     ? 'Wheelchair friendly'
                     : 'Not wheelchair friendly',
               ),
@@ -69,7 +65,7 @@ class WaterCoolerInfoWidget extends StatelessWidget {
           const SizedBox(height: 16),
           Row(
             children: [
-              const Icon(Icons.snowing),
+              const Icon(Icons.ac_unit),
               const SizedBox(width: 8),
               Text(
                 waterCooler.hasCold ? 'Has cold water' : 'No cold water',
@@ -79,7 +75,7 @@ class WaterCoolerInfoWidget extends StatelessWidget {
           const SizedBox(height: 16),
           Row(
             children: [
-              const Icon(Icons.hot_tub),
+              const Icon(Icons.local_fire_department),
               const SizedBox(width: 8),
               Text(
                 waterCooler.hasHot ? 'Has hot water' : 'No hot water',

@@ -58,15 +58,19 @@ class _MyHomePageState extends State<MyHomePage> {
           future: FirebaseFirestore.instance
               .collection('watercoolers')
               .limit(1)
+              .withConverter(
+                fromFirestore: (snapshot, options) => WaterCooler.fromFirestore(
+                  snapshot,
+                ),
+                toFirestore: (waterCooler, options) => waterCooler.toJson(),
+              )
               .get(),
           builder: (_, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             }
-            var waterCooler = WaterCoolerList.fromFirestore(
-              snapshot.data as QuerySnapshot,
-            ).waterCoolers.first;
-            return WaterCoolerInfoWidget(waterCooler: waterCooler);
+            var waterCooler = snapshot.data?.docs.first.data();
+            return WaterCoolerInfoWidget(waterCooler: waterCooler!);
           }),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,

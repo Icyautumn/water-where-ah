@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:water_where_ah/models/enums/approval_status.enum.dart';
+import 'package:water_where_ah/models/enums/wheelchair_friendly.enum.dart';
 
 part 'water_cooler.g.dart';
 
@@ -33,7 +34,7 @@ class WaterCooler {
     required this.location,
     required this.isWorking,
     required this.bottleFriendly,
-    required this.isWheelchairFriendly,
+    required this.wheelchairFriendly,
     required this.hasCold,
     required this.hasHot,
     required this.remarks,
@@ -50,10 +51,12 @@ class WaterCooler {
 
   bool isWorking;
   bool bottleFriendly;
-  bool isWheelchairFriendly;
   bool hasCold;
   bool hasHot;
   String remarks;
+
+  @JsonKey(fromJson: decodeWheelchairFriendly, toJson: encodeWheelchairFriendly)
+  WheelcharFriendly wheelchairFriendly;
 
   @JsonKey(fromJson: decodeApprovalStatus, toJson: encodeApprovalStatus)
   ApprovalStatus approvalStatus;
@@ -72,6 +75,14 @@ class WaterCooler {
 
   static int encodeApprovalStatus(ApprovalStatus approvalStatus) {
     return ApprovalStatus.values.indexOf(approvalStatus);
+  }
+
+  static WheelcharFriendly decodeWheelchairFriendly(int wheelchairFriendly) {
+    return WheelcharFriendly.values[wheelchairFriendly];
+  }
+
+  static int encodeWheelchairFriendly(WheelcharFriendly wheelchairFriendly) {
+    return WheelcharFriendly.values.indexOf(wheelchairFriendly);
   }
 
   factory WaterCooler.fromFirestore(DocumentSnapshot doc) =>
