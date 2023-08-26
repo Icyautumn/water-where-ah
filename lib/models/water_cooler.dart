@@ -66,30 +66,12 @@ class WaterCooler {
     return GeoPoint(waterCoolerLocation.latitude, waterCoolerLocation.longitude);
   }
 
-  static ApprovalStatus decodeApprovalStatus(String approvalStatus) {
-    switch (approvalStatus) {
-      case '0':
-        return ApprovalStatus.pending;
-      case '1':
-        return ApprovalStatus.automatic;
-      case '2':
-        return ApprovalStatus.manual;
-      default:
-        throw Exception('Invalid approval status');
-    }
+  static ApprovalStatus decodeApprovalStatus(int approvalStatus) {
+    return ApprovalStatus.values[approvalStatus];
   }
 
-  static String encodeApprovalStatus(ApprovalStatus approvalStatus) {
-    switch (approvalStatus) {
-      case ApprovalStatus.pending:
-        return '0';
-      case ApprovalStatus.automatic:
-        return '1';
-      case ApprovalStatus.manual:
-        return '2';
-      default:
-        throw Exception('Invalid approval status');
-    }
+  static int encodeApprovalStatus(ApprovalStatus approvalStatus) {
+    return ApprovalStatus.values.indexOf(approvalStatus);
   }
 
   factory WaterCooler.fromFirestore(DocumentSnapshot doc) =>

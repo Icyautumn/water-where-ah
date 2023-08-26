@@ -19,7 +19,7 @@ Map<String, dynamic> _$WaterCoolerListToJson(WaterCoolerList instance) =>
     };
 
 WaterCooler _$WaterCoolerFromJson(Map<String, dynamic> json) => WaterCooler(
-      id: json['id'] as String,
+      id: json['id'] ?? '',
       operator: json['operator'] as String,
       location:
           WaterCooler.decodeWaterCoolerLocation(json['location'] as GeoPoint),
@@ -30,7 +30,7 @@ WaterCooler _$WaterCoolerFromJson(Map<String, dynamic> json) => WaterCooler(
       hasHot: json['hasHot'] as bool,
       remarks: json['remarks'] as String,
       approvalStatus:
-          WaterCooler.decodeApprovalStatus(json['approvalStatus'] as String),
+          WaterCooler.decodeApprovalStatus(json['isApproved'] as int),
     );
 
 Map<String, dynamic> _$WaterCoolerToJson(WaterCooler instance) =>
@@ -43,6 +43,5 @@ Map<String, dynamic> _$WaterCoolerToJson(WaterCooler instance) =>
       'hasCold': instance.hasCold,
       'hasHot': instance.hasHot,
       'remarks': instance.remarks,
-      'approvalStatus':
-          WaterCooler.encodeApprovalStatus(instance.approvalStatus),
+      'isApproved': WaterCooler.encodeApprovalStatus(instance.approvalStatus),
     };

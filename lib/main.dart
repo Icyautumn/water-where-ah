@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:water_where_ah/firebase_options.dart';
+import 'package:water_where_ah/models/water_cooler.dart';
+import 'package:water_where_ah/widgets/watercooler_info.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,20 +54,20 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
+      body: FutureBuilder(
+          future: FirebaseFirestore.instance
+              .collection('watercoolers')
+              .limit(1)
+              .get(),
+          builder: (_, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            var waterCooler = WaterCoolerList.fromFirestore(
+              snapshot.data as QuerySnapshot,
+            ).waterCoolers.first;
+            return WaterCoolerInfoWidget(waterCooler: waterCooler);
+          }),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
