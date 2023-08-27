@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:form_builder_image_picker/form_builder_image_picker.dart';
 
 class AddScreen extends StatefulWidget {
   const AddScreen({Key? key}) : super(key: key);
@@ -39,12 +40,17 @@ class _AddScreenState extends State<AddScreen> {
             child: FormBuilder(
           key: _formKey,
           child: Padding(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
-                  FormBuilderTextField(
-                    name: "remarks",
-                    decoration: InputDecoration(labelText: "Name"),
+                  FormBuilderImagePicker(
+                    name: 'image',
+                    maxImages: 1,
+                    bottomSheetPadding: const EdgeInsets.all(16),
+                    availableImageSources: const [ImageSourceOption.camera],
+                    onImage: (image) {
+                      
+                    },
                   ),
                 ],
               )),
