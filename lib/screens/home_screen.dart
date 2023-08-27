@@ -4,6 +4,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:water_where_ah/models/water_cooler.dart';
+import 'package:water_where_ah/screens/add_screen.dart';
 import 'package:water_where_ah/screens/drawer.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -35,8 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // gets the user's current location
   Future<LatLng> getUserLocation() async {
     debugPrint("Fetching user location");
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     debugPrint('$position');
     return LatLng(position.latitude, position.longitude);
   }
@@ -46,6 +46,15 @@ class _HomeScreenState extends State<HomeScreen> {
       context,
       MaterialPageRoute(
         builder: (context) => DrawerTest(waterCooler: watercooler),
+      ),
+    );
+  }
+
+  navigateToAddScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const AddScreen(),
       ),
     );
   }
@@ -69,7 +78,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
 
                 if (snapshot.hasData) {
-                  var waterCoolers = snapshot.data?.docs.map((e) => WaterCooler.fromFirestore(e)).toList();
+                  var waterCoolers =
+                      snapshot.data?.docs.map((e) => WaterCooler.fromFirestore(e)).toList();
 
                   return FutureBuilder(
                       future: _userLocation,
@@ -143,8 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   fill: 1,
                                                   size: 32,
                                                 ),
-                                                onPressed: () =>
-                                                    navigateToWaterCoolerInfo(e)),
+                                                onPressed: () => navigateToWaterCoolerInfo(e)),
                                           );
                                         },
                                       ),
@@ -167,7 +176,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
               })),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => debugPrint("This should probably do something"),
+        onPressed: () => navigateToAddScreen(),
         tooltip: 'y e s',
         label: const Text('Contribute a water cooler'),
         icon: const Icon(Icons.add),
