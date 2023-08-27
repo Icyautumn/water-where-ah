@@ -124,7 +124,7 @@ class _AddScreenState extends State<AddScreen> {
                     name: 'image',
                     maxImages: 1,
                     bottomSheetPadding: const EdgeInsets.all(16),
-                    availableImageSources: const [ImageSourceOption.camera],
+                    // availableImageSources: const [ImageSourceOption.camera],
                     onChanged: (value) async {
                       if (value?.isEmpty == true) return;
                       var file = value?[0] as XFile?;
@@ -139,6 +139,9 @@ class _AddScreenState extends State<AddScreen> {
                       var percentOfNot = classification['Class 2'];
                       var percentOfYes = classification['Class 1'];
                       setState(() {
+                        print(percentOfNot);
+                        print(percentOfYes);
+                        print(classification);
                         classificationOfWaterCoolerPercent =
                             percentOfNot == null ? percentOfYes! : 1 - percentOfNot;
                       });
