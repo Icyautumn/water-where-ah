@@ -1,9 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:water_where_ah/firebase_options.dart';
-import 'package:water_where_ah/models/water_cooler.dart';
-import 'package:water_where_ah/widgets/watercooler_info.dart';
+import 'package:water_where_ah/screens/drawer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,29 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: FutureBuilder(
-          future: FirebaseFirestore.instance
-              .collection('watercoolers')
-              .limit(1)
-              .withConverter(
-                fromFirestore: (snapshot, options) => WaterCooler.fromFirestore(
-                  snapshot,
-                ),
-                toFirestore: (waterCooler, options) => waterCooler.toJson(),
-              )
-              .get(),
-          builder: (_, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            var waterCooler = snapshot.data?.docs.first.data();
-            return WaterCoolerInfoWidget(waterCooler: waterCooler!);
-          }),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      body: const DrawerTest(),
     );
   }
 }

@@ -29,11 +29,12 @@ WaterCooler _$WaterCoolerFromJson(Map<String, dynamic> json) => WaterCooler(
       hasHot: json['hasHot'] as bool,
       remarks: json['remarks'] as String,
       wheelchairFriendly: WaterCooler.decodeWheelchairFriendly(
-        json['wheelChairFriendly'] as int,
+        json['wheelchairFriendly'] as int,
       ),
       approvalStatus: WaterCooler.decodeApprovalStatus(
         json['isApproved'] as int,
       ),
+      reportCount: json['reportCount'] as int,
     );
 
 Map<String, dynamic> _$WaterCoolerToJson(WaterCooler instance) =>
@@ -45,8 +46,9 @@ Map<String, dynamic> _$WaterCoolerToJson(WaterCooler instance) =>
       'hasCold': instance.hasCold,
       'hasHot': instance.hasHot,
       'remarks': instance.remarks,
+      'reportCount': instance.reportCount,
       'isApproved': WaterCooler.encodeApprovalStatus(instance.approvalStatus),
-      'wheelChairFriendly': WaterCooler.encodeWheelchairFriendly(
+      'wheelchairFriendly': WaterCooler.encodeWheelchairFriendly(
         instance.wheelchairFriendly,
       ),
     };

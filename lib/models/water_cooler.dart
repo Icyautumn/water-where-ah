@@ -17,12 +17,14 @@ class WaterCoolerList {
   factory WaterCoolerList.fromFirestore(QuerySnapshot querySnapshot) {
     return WaterCoolerList(
       waterCoolers: querySnapshot.docs
-          .map((documentSnapshot) => WaterCooler.fromFirestore(documentSnapshot))
+          .map(
+              (documentSnapshot) => WaterCooler.fromFirestore(documentSnapshot))
           .toList(),
     );
   }
 
-  factory WaterCoolerList.fromJson(Map<String, dynamic> json) => _$WaterCoolerListFromJson(json);
+  factory WaterCoolerList.fromJson(Map<String, dynamic> json) =>
+      _$WaterCoolerListFromJson(json);
   Map<String, dynamic> toJson() => _$WaterCoolerListToJson(this);
 }
 
@@ -39,6 +41,7 @@ class WaterCooler {
     required this.hasHot,
     required this.remarks,
     required this.approvalStatus,
+    required this.reportCount,
   });
 
   @JsonKey(includeFromJson: true, includeToJson: false)
@@ -46,13 +49,17 @@ class WaterCooler {
 
   String operator;
 
-  @JsonKey(fromJson: decodeWaterCoolerLocation, toJson: encodeWaterCoolerLocation)
+  @JsonKey(
+    fromJson: decodeWaterCoolerLocation,
+    toJson: encodeWaterCoolerLocation,
+  )
   LatLng location;
 
   bool isWorking;
   bool bottleFriendly;
   bool hasCold;
   bool hasHot;
+  int reportCount;
   String remarks;
 
   @JsonKey(fromJson: decodeWheelchairFriendly, toJson: encodeWheelchairFriendly)
@@ -66,7 +73,8 @@ class WaterCooler {
   }
 
   static GeoPoint encodeWaterCoolerLocation(LatLng waterCoolerLocation) {
-    return GeoPoint(waterCoolerLocation.latitude, waterCoolerLocation.longitude);
+    return GeoPoint(
+        waterCoolerLocation.latitude, waterCoolerLocation.longitude);
   }
 
   static ApprovalStatus decodeApprovalStatus(int approvalStatus) {
@@ -88,6 +96,7 @@ class WaterCooler {
   factory WaterCooler.fromFirestore(DocumentSnapshot doc) =>
       WaterCooler.fromJson(doc.data()! as Map<String, dynamic>)..id = doc.id;
 
-  factory WaterCooler.fromJson(Map<String, dynamic> json) => _$WaterCoolerFromJson(json);
+  factory WaterCooler.fromJson(Map<String, dynamic> json) =>
+      _$WaterCoolerFromJson(json);
   Map<String, dynamic> toJson() => _$WaterCoolerToJson(this);
 }
