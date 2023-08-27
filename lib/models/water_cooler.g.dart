@@ -6,23 +6,20 @@ part of 'water_cooler.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-WaterCoolerList _$WaterCoolerListFromJson(Map<String, dynamic> json) =>
-    WaterCoolerList(
+WaterCoolerList _$WaterCoolerListFromJson(Map<String, dynamic> json) => WaterCoolerList(
       waterCoolers: (json['waterCoolers'] as List<dynamic>)
           .map((e) => WaterCooler.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$WaterCoolerListToJson(WaterCoolerList instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$WaterCoolerListToJson(WaterCoolerList instance) => <String, dynamic>{
       'waterCoolers': instance.waterCoolers.map((e) => e.toJson()).toList(),
     };
 
 WaterCooler _$WaterCoolerFromJson(Map<String, dynamic> json) => WaterCooler(
       id: json['id'] ?? '',
       operator: json['operator'] as String,
-      location:
-          WaterCooler.decodeWaterCoolerLocation(json['location'] as GeoPoint),
+      location: WaterCooler.decodeWaterCoolerLocation(json['location'] as GeoPoint),
       isWorking: json['isWorking'] as bool,
       bottleFriendly: json['bottleFriendly'] as bool,
       hasCold: json['hasCold'] as bool,
@@ -34,11 +31,10 @@ WaterCooler _$WaterCoolerFromJson(Map<String, dynamic> json) => WaterCooler(
       approvalStatus: WaterCooler.decodeApprovalStatus(
         json['isApproved'] as int,
       ),
-      reportCount: json['reportCount'] as int,
+      reportCount: json['reportCount'] == null ? 0 : json['reportCount'] as int,
     );
 
-Map<String, dynamic> _$WaterCoolerToJson(WaterCooler instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$WaterCoolerToJson(WaterCooler instance) => <String, dynamic>{
       'operator': instance.operator,
       'location': WaterCooler.encodeWaterCoolerLocation(instance.location),
       'isWorking': instance.isWorking,

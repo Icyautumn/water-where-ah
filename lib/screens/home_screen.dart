@@ -4,6 +4,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:water_where_ah/models/water_cooler.dart';
+import 'package:water_where_ah/screens/drawer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -39,6 +40,15 @@ class _HomeScreenState extends State<HomeScreen> {
     return LatLng(position.latitude, position.longitude);
   }
 
+  navigateToWaterCoolerInfo(WaterCooler watercooler) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DrawerTest(waterCooler: watercooler),
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -58,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
 
                 if (snapshot.hasData) {
-                  var waterCoolers = snapshot.data?.docs.map((e) => e.data()).toList();
+                  var waterCoolers = snapshot.data?.docs.map((e) => WaterCooler.fromFirestore(e)).toList();
 
                   return FutureBuilder(
                       future: _userLocation,
@@ -99,7 +109,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                               Shadow(
                                                 blurRadius: 50,
                                                 color: Colors.lightBlue.shade300,
-                                                offset: Offset(0, 0),
                                               )
                                             ],
                                             fill: 1,
@@ -113,25 +122,31 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                         ]),
                                       ),
-                                      ...waterCoolers!.map((e) => Marker(
+                                      ...waterCoolers!.map(
+                                        (e) {
+                                          return Marker(
                                             width: 80.0,
                                             height: 80.0,
-                                            point: LatLng((e['location'] as GeoPoint).latitude,
-                                                (e['location'] as GeoPoint).longitude),
-                                            builder: (ctx) => Icon(
-                                              Icons.water_drop,
-                                              color: Colors.blue[800],
-                                              shadows: const [
-                                                Shadow(
-                                                  blurRadius: 10,
-                                                  color: Colors.white,
-                                                  offset: Offset(0, 0),
-                                                )
-                                              ],
-                                              fill: 1,
-                                              size: 32,
-                                            ),
-                                          ))
+                                            point: e.location,
+                                            builder: (ctx) => IconButton(
+                                                icon: Icon(
+                                                  Icons.water_drop,
+                                                  color: Colors.blue[800],
+                                                  shadows: const [
+                                                    Shadow(
+                                                      blurRadius: 10,
+                                                      color: Colors.white,
+                                                      offset: Offset(0, 0),
+                                                    )
+                                                  ],
+                                                  fill: 1,
+                                                  size: 32,
+                                                ),
+                                                onPressed: () =>
+                                                    navigateToWaterCoolerInfo(e)),
+                                          );
+                                        },
+                                      ),
                                     ],
                                   )
                                 ]),

@@ -4,28 +4,16 @@ import 'package:water_where_ah/models/water_cooler.dart';
 import 'package:water_where_ah/widgets/watercooler_info.dart';
 
 class DrawerTest extends StatelessWidget {
-  const DrawerTest({super.key});
+  final WaterCooler waterCooler;
+  const DrawerTest({super.key, required this.waterCooler});
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: FirebaseFirestore.instance
-          .collection('watercoolers')
-          .limit(1)
-          .withConverter(
-            fromFirestore: (snapshot, options) => WaterCooler.fromFirestore(
-              snapshot,
-            ),
-            toFirestore: (waterCooler, options) => waterCooler.toJson(),
-          )
-          .get(),
-      builder: (_, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        var waterCooler = snapshot.data?.docs.first.data();
-        return WaterCoolerInfoWidget(waterCooler: waterCooler!);
-      },
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(waterCooler.operator),
+      ),
+      body: WaterCoolerInfoWidget(waterCooler: waterCooler),
     );
   }
 }

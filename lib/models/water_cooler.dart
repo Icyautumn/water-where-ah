@@ -17,14 +17,12 @@ class WaterCoolerList {
   factory WaterCoolerList.fromFirestore(QuerySnapshot querySnapshot) {
     return WaterCoolerList(
       waterCoolers: querySnapshot.docs
-          .map(
-              (documentSnapshot) => WaterCooler.fromFirestore(documentSnapshot))
+          .map((documentSnapshot) => WaterCooler.fromFirestore(documentSnapshot))
           .toList(),
     );
   }
 
-  factory WaterCoolerList.fromJson(Map<String, dynamic> json) =>
-      _$WaterCoolerListFromJson(json);
+  factory WaterCoolerList.fromJson(Map<String, dynamic> json) => _$WaterCoolerListFromJson(json);
   Map<String, dynamic> toJson() => _$WaterCoolerListToJson(this);
 }
 
@@ -73,8 +71,7 @@ class WaterCooler {
   }
 
   static GeoPoint encodeWaterCoolerLocation(LatLng waterCoolerLocation) {
-    return GeoPoint(
-        waterCoolerLocation.latitude, waterCoolerLocation.longitude);
+    return GeoPoint(waterCoolerLocation.latitude, waterCoolerLocation.longitude);
   }
 
   static ApprovalStatus decodeApprovalStatus(int approvalStatus) {
@@ -93,10 +90,10 @@ class WaterCooler {
     return WheelcharFriendly.values.indexOf(wheelchairFriendly);
   }
 
-  factory WaterCooler.fromFirestore(DocumentSnapshot doc) =>
-      WaterCooler.fromJson(doc.data()! as Map<String, dynamic>)..id = doc.id;
+  factory WaterCooler.fromFirestore(DocumentSnapshot doc) {
+    return WaterCooler.fromJson(doc.data()! as Map<String, dynamic>)..id = doc.id;
+  }
 
-  factory WaterCooler.fromJson(Map<String, dynamic> json) =>
-      _$WaterCoolerFromJson(json);
+  factory WaterCooler.fromJson(Map<String, dynamic> json) => _$WaterCoolerFromJson(json);
   Map<String, dynamic> toJson() => _$WaterCoolerToJson(this);
 }
