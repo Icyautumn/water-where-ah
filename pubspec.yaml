@@ -41,6 +41,7 @@ dependencies:
   geolocator: ^10.0.0
   json_annotation: ^4.8.1
   is_first_run: ^1.0.0
+  url_launcher: ^6.1.12
 
 dev_dependencies:
   flutter_test:
