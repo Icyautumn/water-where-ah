@@ -48,6 +48,7 @@ dependencies:
   is_first_run: ^1.0.0
   url_launcher: ^6.1.12
   flutter_form_builder: ^9.1.0
+  form_builder_validators: ^9.0.0
   form_builder_image_picker: ^4.0.0
   tflite_flutter: ^0.10.1
 
