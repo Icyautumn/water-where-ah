@@ -26,7 +26,7 @@ import 'package:tflite_flutter/tflite_flutter.dart';
 import 'isolate_inference.dart';
 
 class ImageClassificationHelper {
-  static const modelPath = 'lib/assets/models/mobilenet_quant.tflite';
+  static const modelPath = 'lib/assets/models/model.tflite';
   static const labelsPath = 'lib/assets/models/labels.txt';
 
   late final Interpreter interpreter;

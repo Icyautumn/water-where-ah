@@ -1,6 +1,11 @@
+import 'dart:io';
+
+import 'package:camera/camera.dart';
+import 'package:image/image.dart' as image_lib;
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
+import 'package:water_where_ah/helper/image_classification_helper.dart';
 
 class AddScreen extends StatefulWidget {
   const AddScreen({Key? key}) : super(key: key);
@@ -11,6 +16,22 @@ class AddScreen extends StatefulWidget {
 
 class _AddScreenState extends State<AddScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
+  ImageClassificationHelper? imageClassificationHelper;
+  Map<String, double>? classification;
+  double classificationOfWaterCoolerPercent = 0.0;
+
+  @override
+  void initState() {
+    imageClassificationHelper = ImageClassificationHelper();
+    imageClassificationHelper!.initHelper();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    imageClassificationHelper?.close();
+    super.dispose();
+  }
 
   // add a method to add a new watercooler to the database
   void addWatercooler() {
@@ -48,10 +69,30 @@ class _AddScreenState extends State<AddScreen> {
                     maxImages: 1,
                     bottomSheetPadding: const EdgeInsets.all(16),
                     availableImageSources: const [ImageSourceOption.camera],
-                    onImage: (image) {
-                      
+                    onChanged: (value) async {
+                      if (value?.isEmpty == true) return;
+                      var file = value?[0] as XFile?;
+                      if (file == null) return;
+                      var bytes = await file.readAsBytes();
+                      var image = image_lib.Image.fromBytes(
+                        width: 250,
+                        height: 250,
+                        bytes: bytes.buffer,
+                      );
+                      var classification = await imageClassificationHelper!
+                          .inferenceImage(image);
+                      var percentOfNot = classification['Class 2'];
+                      var percentOfYes = classification['Class 1'];
+                      setState(() {
+                        classificationOfWaterCoolerPercent =
+                            percentOfNot == null
+                                ? percentOfYes!
+                                : 1 - percentOfNot;
+                      });
                     },
                   ),
+                  Text(
+                      'Is a watercooler: ${classificationOfWaterCoolerPercent * 100}')
                 ],
               )),
         )));
