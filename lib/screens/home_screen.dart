@@ -32,7 +32,8 @@ class _HomeScreenState extends State<HomeScreen> {
   // gets the user's current location
   Future<LatLng> getUserLocation() async {
     debugPrint("Fetching user location");
-    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
     debugPrint('$position');
     return LatLng(position.latitude, position.longitude);
   }
@@ -100,7 +101,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 } else if (snapshot.hasError) {
                   return Text("${snapshot.error}");
-                } else if (snapshot.connectionState == ConnectionState.waiting) {
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
                   return const Center(
                     child: CircularProgressIndicator(strokeWidth: 3),
                   );
@@ -108,10 +110,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   return const SizedBox(height: 0);
                 }
               })),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () => debugPrint("This should probably do something"),
         tooltip: 'y e s',
-        child: const Icon(Icons.add),
+        label: const Text('Contribute a water cooler'),
+        icon: const Icon(Icons.add),
       ),
     );
   }
