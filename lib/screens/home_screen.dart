@@ -91,17 +91,24 @@ class _HomeScreenState extends State<HomeScreen> {
                                         width: 80.0,
                                         height: 80.0,
                                         point: snapshot.data!,
-                                        builder: (ctx) => const Stack(children: [
+                                        builder: (ctx) => Stack(children: [
                                           Icon(
                                             Icons.circle,
-                                            color: Colors.blue,
+                                            color: Colors.blue[600],
+                                            shadows: [
+                                              Shadow(
+                                                blurRadius: 50,
+                                                color: Colors.lightBlue.shade300,
+                                                offset: Offset(0, 0),
+                                              )
+                                            ],
                                             fill: 1,
-                                            size: 32,
+                                            size: 28,
                                           ),
-                                          Icon(
+                                          const Icon(
                                             Icons.circle_outlined,
-                                            color: Colors.red,
-                                            size: 32,
+                                            color: Colors.white,
+                                            size: 28,
                                             opticalSize: 10,
                                           ),
                                         ]),
@@ -114,12 +121,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                             builder: (ctx) => Icon(
                                               Icons.water_drop,
                                               color: Colors.blue[800],
-                                              shadows: [
-                                                const Shadow(
+                                              shadows: const [
+                                                Shadow(
                                                   blurRadius: 10,
                                                   color: Colors.white,
                                                   offset: Offset(0, 0),
-                                                )],
+                                                )
+                                              ],
                                               fill: 1,
                                               size: 32,
                                             ),
